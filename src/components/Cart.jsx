@@ -1,8 +1,8 @@
-// src/components/Cart.jsx
 import React from 'react';
 
 const Cart = ({ cartItems, removeFromCart }) => {
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  // Calculate total price
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div className="cart">
@@ -13,7 +13,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
         <ul>
           {cartItems.map((item, index) => (
             <li key={index}>
-              {item.name} - ${item.price}
+              {item.name} - ${item.price} x {item.quantity} = ${(item.price * item.quantity).toFixed(2)}
               <button onClick={() => removeFromCart(index)}>Remove</button>
             </li>
           ))}

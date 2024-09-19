@@ -17,8 +17,22 @@ const App = () => {
 
   // Add to cart
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    setCartItems((prevItems) => {
+      // Check if the product is already in the cart
+      const existingItem = prevItems.find(item => item.id === product.id);
+  
+      if (existingItem) {
+        // If product exists, increase the quantity
+        return prevItems.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+  
+      // If product does not exist, add it with a quantity of 1
+      return [...prevItems, { ...product, quantity: 1 }];
+    });
   };
+  
 
   // Remove from cart
   const removeFromCart = (index) => {
